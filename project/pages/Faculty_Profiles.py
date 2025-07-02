@@ -1,4 +1,6 @@
 import streamlit as st
+import requests
+import os
 from scholarly import scholarly
 import pandas as pd
 import plotly.express as px
@@ -52,7 +54,7 @@ navbar = """
 st.markdown(navbar, unsafe_allow_html=True)
 
 # Faculty metrics table
-metrics_df = pd.read_excel("faculty_metrics.xlsx")
+metrics_df = pd.read_excel("project/faculty_metrics.xlsx")
 st.title("🎓 Faculty Research Profiles")
 
 faculty_id = st.text_input("Enter Faculty Google Scholar Author ID", "")
@@ -61,8 +63,18 @@ faculty_id = st.text_input("Enter Faculty Google Scholar Author ID", "")
 cloudinary_base_url = "https://res.cloudinary.com/dwuhswk2w/image/upload/v1751302313/"
 
 # Function to generate image URL
+
 def get_profile_image_url(faculty_id):
-    return f"{cloudinary_base_url}{faculty_id}.jpg"
+    remote_url = f"{cloudinary_base_url}{faculty_id}.jpg"
+    try:
+        response = requests.head(remote_url)
+        if response.status_code == 200:
+            return remote_url
+        else:
+            raise Exception("Image not found on Cloudinary")
+    except:
+        # Fall back to local default image
+        return os.path.join("profile_photos", "default.jpg")
 
 # Show metrics table if no ID
 if not faculty_id:

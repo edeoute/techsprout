@@ -148,7 +148,7 @@ components.html(f"""
 </div>
 """, height=900)
 
-df = pd.read_excel("department_metrics.xlsx")
+df = pd.read_excel("project/department_metrics.xlsx")
 
 # Page Title
 

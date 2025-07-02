@@ -7,7 +7,7 @@ import plotly.express as px
 st.set_page_config(page_title="Department Research Publications", layout="wide")
 
 # Load faculty data
-df = pd.read_excel("faculty_metrics.xlsx")
+df = pd.read_excel("project/faculty_metrics.xlsx")
 
 # Get unique departments
 departments = df['Department'].unique()
