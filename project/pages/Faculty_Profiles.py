@@ -57,7 +57,41 @@ st.markdown(navbar, unsafe_allow_html=True)
 metrics_df = pd.read_excel("project/faculty_metrics.xlsx")
 st.title("🎓 Faculty Research Profiles")
 
-faculty_id = st.text_input("Enter Faculty Google Scholar Author ID", "")
+# Load faculty data
+metrics_df = pd.read_excel("project/faculty_metrics.xlsx")
+
+# Preprocess for case-insensitive search
+metrics_df["Name_Lower"] = metrics_df["Name"].str.lower()
+
+# Input box for name search
+name_query = st.text_input("Enter Faculty Name").strip().lower()
+
+# Filter names that match the query
+matched_faculty = metrics_df[metrics_df["Name_Lower"].str.contains(name_query, na=False)] if name_query else pd.DataFrame()
+
+# Let user pick from matched names (if multiple)
+faculty_id = ""
+department = ""
+
+if not matched_faculty.empty:
+    # Display name and department for clarity
+    matched_faculty = matched_faculty.copy()  # Ensure it's a real copy
+    matched_faculty["Display"] = matched_faculty["Name"] + " (" + matched_faculty["Department"] + ")"
+    selected_display = st.selectbox("Select Matching Faculty", matched_faculty["Display"])
+
+    # Get selected row
+    selected_row = matched_faculty[matched_faculty["Display"] == selected_display].iloc[0]
+    faculty_id = selected_row["Scholar ID"]
+    department = selected_row["Department"]
+    faculty_name = selected_row["Name"]
+
+    if faculty_id == "Not Found":
+        st.warning("⚠️ Google Scholar ID not available for this faculty member.")
+        st.stop()
+
+    st.markdown(f"### 👤 {faculty_name}")
+    st.markdown(f"🏢 **Department:** {department}")
+
 
 # Cloudinary Base URL
 cloudinary_base_url = "https://res.cloudinary.com/dwuhswk2w/image/upload/v1751302313/"
@@ -74,7 +108,8 @@ def get_profile_image_url(faculty_id):
             raise Exception("Image not found on Cloudinary")
     except:
         # Fall back to local default image
-        return os.path.join("profile_photos", "default.jpg")
+        return os.path.join("..", "profile_photos", "default.jpg")
+
 
 # Show metrics table if no ID
 if not faculty_id:
