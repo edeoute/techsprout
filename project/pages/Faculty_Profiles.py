@@ -6,7 +6,11 @@ import pandas as pd
 import plotly.express as px
 
 # Page config
-st.set_page_config(page_title="Faculty Research Profile", layout="wide")
+st.set_page_config(
+    page_title="Faculty Research Profile",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
 
 # Navbar
 navbar = """
@@ -54,7 +58,7 @@ navbar = """
 st.markdown(navbar, unsafe_allow_html=True)
 
 # Faculty metrics table
-metrics_df = pd.read_excel("project/faculty_metrics.xlsx")
+# metrics_df = pd.read_excel("project/faculty_metrics.xlsx")
 st.title("🎓 Faculty Research Profiles")
 
 # Load faculty data

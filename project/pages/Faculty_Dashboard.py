@@ -93,7 +93,7 @@ home_css = """
 }
 .card a {
     text-decoration: none;
-    color: #ffffff;
+    color: white;
     background-color: #424593;
     padding: 10px 20px;
     border-radius: 5px;
@@ -138,31 +138,6 @@ components.html(f"""
         <p>Browse research profiles, citations and scholarly work.</p>
         <a href="#">View Profile</a>
     </div>
-    <div class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" alt="Faculty">
-        <h3>Senior Professor</h3>
-        <p>Browse research profiles, citations and scholarly work.</p>
-        <a href="#">View Profile</a>
-    </div>
-    <div class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" alt="Faculty">
-        <h3>Physical Director</h3>
-        <p>Browse research profiles, citations and scholarly work.</p>
-        <a href="#">View Profile</a>
-    </div>
-    <div class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" alt="Faculty">
-        <h3>Faculty</h3>
-        <p>Browse research profiles, citations and scholarly work.</p>
-        <a href="#">View Profile</a>
-    </div>
-    <div class="card">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" alt="Faculty">
-        <h3>Scientist</h3>
-        <p>Browse research profiles, citations and scholarly work.</p>
-        <a href="#">View Profile</a>
-    </div>
-  
     
     
 </div>
