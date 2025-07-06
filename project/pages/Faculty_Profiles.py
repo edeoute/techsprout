@@ -104,15 +104,17 @@ cloudinary_base_url = "https://res.cloudinary.com/dwuhswk2w/image/upload/v175130
 
 def get_profile_image_url(faculty_id):
     remote_url = f"{cloudinary_base_url}{faculty_id}.jpg"
+    default_image_url = "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"  # replace with your default image link
+
     try:
         response = requests.head(remote_url)
         if response.status_code == 200:
             return remote_url
         else:
-            raise Exception("Image not found on Cloudinary")
+            return default_image_url
     except:
-        # Fall back to local default image
-        return os.path.join("..", "profile_photos", "default.jpg")
+        return default_image_url
+
 
 
 # Show metrics table if no ID
